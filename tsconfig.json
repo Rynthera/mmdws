@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "lib": ["ES2020", "ESNext"],
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "target": "ES2020",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "outDir": "dist",
+        "declaration": true,
+        "rootDir": "src"
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "types", "dist"],
+    "typeRoots": ["types", "./node_modules/@types"],
+}

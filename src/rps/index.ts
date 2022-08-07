@@ -1,5 +1,5 @@
 // node index <rock, paper, or scissors>
-const {basename, relative} = require('node:path');
+import { basename, relative } from 'node:path';
 
 
 function pickOne(arr)
