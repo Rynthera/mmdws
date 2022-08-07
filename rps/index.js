@@ -52,12 +52,13 @@ function main()
 
     
     const userChoices = cleanUp(process.argv[2]);
+    const computerChoice = pickOne(Object.keys(beatenBy))
     if (Object.hasOwnProperty.call(beatenBy,userChoices)) 
     {
     console.log(`User Chose "${userChoices}"`);
     console.log(`Computer Chose "${computerChoice}"`);
     console.log(whoWon(userChoices,computerChoice));
-    const computerChoice = pickOne(Object.keys(beatenBy))
+    
     } else {
         console.log(`Error: "${
             process.argv[2]
