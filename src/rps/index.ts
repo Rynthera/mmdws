@@ -1,25 +1,33 @@
 // node index <rock, paper, or scissors>
 import { basename, relative } from 'node:path';
 
+enum RPS {
+    ROCK = "rock",
+    PAPER = "paper",
+    SCISSORS = "scissors"
+}
 
-function pickOne(arr)
+// computer choosing what to use.
+function pickOne(arr: RPS[]): RPS
 {
     const choice = Math.floor(Math.random() * arr.length)
     return arr[choice];
 }
 
 
-const beatenBy = 
+const beatenBy:  
 {
-    "rock":"paper",
-    "paper":"scissors",
-    "scissors":"rock",
+[K in RPS]: RPS
+} = {
+    [RPS.ROCK]: RPS.PAPER,
+    [RPS.PAPER]: RPS.SCISSORS,
+    [RPS.SCISSORS]: RPS.ROCK,
 };
 
 
 
 // output
-function whoWon(userChoices, computerChoice)
+function whoWon(userChoices: RPS, computerChoice: RPS): string
 {
     if (userChoices === computerChoice) {
         return "It's a tie!";
@@ -36,28 +44,34 @@ function whoWon(userChoices, computerChoice)
 
 
 
-function cleanUp(str) 
+function cleanUp(str: string): RPS | null  
 {
-    if (typeof str === "string" && str.length > 0) {
-        return str.trim().toLowerCase();
+    if (typeof str !== "string")  {
+        return null
     }
-    return null;
+    const clean: string = str.trim().toLowerCase();
+    if (!Object.hasOwnProperty.call(beatenBy, clean)) {
+        return null;
+    }
+    return clean as RPS
 }
 
 
 
 function main() 
 {
-    const choices = Object.keys(beatenBy)
+    const choices = Object.keys(beatenBy) as RPS[];
 
     
     const userChoices = cleanUp(process.argv[2]);
-    const computerChoice = pickOne(Object.keys(beatenBy))
-    if (Object.hasOwnProperty.call(beatenBy,userChoices)) 
+    
+    if (Object.hasOwnProperty.call(beatenBy, userChoices)) 
     {
+    const computerChoice = pickOne(choices);
+    const result = whoWon(userChoices, computerChoice);
     console.log(`User Chose "${userChoices}"`);
     console.log(`Computer Chose "${computerChoice}"`);
-    console.log(whoWon(userChoices,computerChoice));
+    console.log("Result: ", result);
     
     } else {
         console.log(`Error: "${
